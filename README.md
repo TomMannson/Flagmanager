@@ -8,3 +8,7 @@
 * clone this repository
 * go to `flagmanager` directory
 * open powershell and run `gradlew.bat bootRun` 
+
+### How to test it
+* open [http://localhost:8081/swagger-ui.html#/try-controller/infoUsingGET](http://localhost:8081/swagger-ui.html#/try-controller/infoUsingGET)
+* page should contains endpoints (one at that moment) to test
