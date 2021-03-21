@@ -2,7 +2,7 @@
 
 ### How to run System
 
-* run in powershell ``java -verion``, result should returns 1.8 
+* run in powershell ``java -version``, result should returns 1.8 
 
 #### 1. Run Server (flag manager)
 * clone this repository
