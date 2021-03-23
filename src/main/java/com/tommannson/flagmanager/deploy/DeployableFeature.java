@@ -1,6 +1,7 @@
 package com.tommannson.flagmanager.deploy;
 
 import com.tommannson.flagmanager.deploy.dto.ResultFeatureDto;
+import com.tommannson.flagmanager.deploy.valueObject.FlagInfoValue;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -19,12 +20,12 @@ public class DeployableFeature {
     @JoinColumn(name = "deployed_level_id")
     DeployedLevel deployLevel;
 
-    static DeployableFeature createNew(UUID flagId, DeployedLevel deployLevel){
+    static DeployableFeature createNew(FlagInfoValue flagValue, DeployedLevel deployLevel){
         DeployableFeature feature = new DeployableFeature();
         feature.id = UUID.randomUUID();
         feature.deployLevel = deployLevel;
-        feature.flagId = flagId;
-        feature.flagName = "FLAG_NAME";
+        feature.flagId = UUID.fromString(flagValue.getId());
+        feature.flagName = flagValue.getName();
         return feature;
     }
 

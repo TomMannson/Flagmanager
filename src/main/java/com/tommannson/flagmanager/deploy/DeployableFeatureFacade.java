@@ -1,5 +1,6 @@
 package com.tommannson.flagmanager.deploy;
 
+import com.tommannson.flagmanager.deploy.valueObject.FlagInfoValue;
 import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +35,8 @@ public class DeployableFeatureFacade {
     }
 
     @Transactional
-    public DeployableFeature assignLevelToFeature(UUID flagId, UUID levelId) {
-        Optional<DeployableFeature> foundFeature = featureRepository.findByFlagId(flagId);
+    public DeployableFeature assignLevelToFeature(FlagInfoValue flagValue, UUID levelId) {
+        Optional<DeployableFeature> foundFeature = featureRepository.findByFlagId(UUID.fromString(flagValue.getId()));
         Optional<DeployedLevel> foundLevel = levelRepository.findById(levelId);
         if(!foundLevel.isPresent()){
             throw new ResourceNotExistsException();
@@ -45,7 +46,7 @@ public class DeployableFeatureFacade {
             feature.deployLevel = foundLevel.get();
             return feature;
         } else {
-            DeployableFeature newFeature = DeployableFeature.createNew(flagId, foundLevel.get());
+            DeployableFeature newFeature = DeployableFeature.createNew(flagValue, foundLevel.get());
             return featureRepository.save(newFeature);
         }
     }

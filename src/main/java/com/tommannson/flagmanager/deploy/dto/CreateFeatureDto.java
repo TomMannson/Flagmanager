@@ -1,15 +1,17 @@
 package com.tommannson.flagmanager.deploy.dto;
 
+import java.util.UUID;
+
 public class CreateFeatureDto {
 
-    String flagId;
-    String deployLevel;
+    UUID flagId;
+    UUID deployLevel;
 
-    public String getFlagId() {
+    public UUID getFlagId() {
         return flagId;
     }
 
-    public String getDeployLevel() {
+    public UUID getDeployLevel() {
         return deployLevel;
     }
 }

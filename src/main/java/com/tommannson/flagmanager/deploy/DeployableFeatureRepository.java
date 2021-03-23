@@ -10,8 +10,8 @@ import java.util.UUID;
 
 public interface DeployableFeatureRepository extends JpaRepository<DeployableFeature, UUID> {
 
-    @Query("from DeployableFeature feature join fetch feature.deployLevel")
-    Set<DeployableFeature> findAllWithLevels();
+    @Query("from DeployableFeature feature join fetch feature.deployLevel where feature.deployLevel.id in :deployLevel")
+    Set<DeployableFeature> findAllWithLevels(Iterable<UUID> deployLevel);
 
     Optional<DeployableFeature> findByFlagId(UUID flagId);
 
