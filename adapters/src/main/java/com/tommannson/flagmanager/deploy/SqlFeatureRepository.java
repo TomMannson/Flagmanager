@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-public interface SqlFeatureRepository extends JpaRepository<DeployableFeature, UUID>, FeatureRepository {
+interface SqlFeatureRepository extends JpaRepository<DeployableFeature, UUID>, FeatureRepository {
 
     @Query("from DeployableFeature feature join fetch feature.deployLevel where feature.deployLevel.id in :deployLevel")
     Set<DeployableFeature> findAllWithLevels(Iterable<UUID> deployLevel);

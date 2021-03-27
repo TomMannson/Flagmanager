@@ -1,6 +1,5 @@
 package com.tommannson.flagmanager.flags.controller;
 
-import com.tommannson.flagmanager.deploy.dto.ResultFeatureDto;
 import com.tommannson.flagmanager.flags.*;
 import com.tommannson.flagmanager.flags.dto.CreateFlagDto;
 import com.tommannson.flagmanager.flags.dto.ResultFlagDto;
@@ -20,7 +19,7 @@ public class CodeFlagController {
     private final FlagRepository flagRepository;
 
 
-    public CodeFlagController(FlagFacade flagFacade, CodeFlagRepository flagRepository) {
+    public CodeFlagController(FlagFacade flagFacade, FlagRepository flagRepository) {
         this.flagFacade = flagFacade;
         this.flagRepository = flagRepository;
     }

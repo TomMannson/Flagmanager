@@ -1,6 +1,7 @@
 package com.tommannson.flagmanager.flags;
 
 import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ public class FlagFacade {
 
     private final FlagRepository repository;
 
+    @Autowired
     FlagFacade(FlagRepository repository) {
         this.repository = repository;
     }
