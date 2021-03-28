@@ -4,11 +4,11 @@ import java.util.*;
 
 public interface FeatureRepository {
 
-    Set<DeployableFeature> findAllWithLevels(Iterable<UUID> deployLevel);
+    Set<DeployFeatureSnapshot> findAllWithLevels(Iterable<UUID> deployLevel);
 
-    Optional<DeployableFeature> findByFlagId(UUID flagId);
+    Optional<DeployableFeature> findFeatureByFlagId(UUID flagId);
 
-    DeployableFeature save(DeployableFeature feature);
+    UUID saveFeature(DeployableFeature feature);
 
-    List<DeployableFeature> findAll();
+    List<DeployFeatureSnapshot> findAll();
 }

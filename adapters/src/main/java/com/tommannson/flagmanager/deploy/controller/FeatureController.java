@@ -12,10 +12,7 @@ import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,37 +36,37 @@ public class FeatureController {
     ResponseEntity<?> findAllFeaturesWithDeployLevel(@RequestParam(name = "deployLevel") String deployLevel) {
         Set<UUID> uuids = Collections.singleton(UUID.fromString(deployLevel));
         List<ResultFeatureDto> result = deployableFeatureRepository.findAllWithLevels(uuids)
-                .stream().map(DeployableFeature::toSnapshot)
-                .map(value -> new ResultFeatureDto(value.getId().toString(),
+                .stream()
+                .map(value -> new ResultFeatureDto(
+                        value.getId().toString(),
                         value.getFlagId().toString(),
                         value.getFlagName(),
-                        value.getDeployLevel(),
-                        value.getDeployName()))
+                        value.getDeployLevel().getName(),
+                        value.getDeployLevel().getDescription()
+                ))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(result);
+//        return ResponseEntity.ok(new ArrayList<ResultFeatureDto>());
     }
 
     @GetMapping(params = "!deployLevel")
     ResponseEntity<?> assigneLevelToFlag() {
         List<ResultFeatureDto> result = deployableFeatureRepository.findAll()
                 .stream()
-                .map(DeployableFeature::toSnapshot)
                 .map(value -> new ResultFeatureDto(value.getId().toString(),
                         value.getFlagId().toString(),
                         value.getFlagName(),
-                        value.getDeployLevel(),
-                        value.getDeployName()))
+                        value.getDeployLevel().getName(),
+                        value.getDeployLevel().getDescription()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/level")
     ResponseEntity<?> assigneLevelToFlag(@RequestBody CreateFeatureDto dto) {
-        codeFlagRepository.findById(dto.getFlagId())
-                .map(CodeFlag::getSnapshot)
-                .map(FlagInfoValue::new)
-                .map(flagValue -> deployFacade.assignLevelToFeature(flagValue, dto.getDeployLevel()))
-                .orElseThrow(ResourceNotExistsException::new);
+        CodeFlag flag = codeFlagRepository.findFlagById(dto.getFlagId());
+        FlagInfoValue value = new FlagInfoValue(flag.getSnapshot());
+        deployFacade.assignLevelToFeature(value, dto.getDeployLevel());
 
         return ResponseEntity.ok().build();
     }

@@ -1,29 +1,32 @@
 package com.tommannson.flagmanager.deploy;
+
 import com.tommannson.flagmanager.deploy.valueObject.FlagInfoValue;
 
-import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
-@Table(name = "deployable_features")
+
 public class DeployableFeature {
 
-    @Id
     UUID id;
-
-    UUID flagId; //dataReplication
-    String flagName; //dataReplication
-
-    @ManyToOne
-    @JoinColumn(name = "deployed_level_id")
+    UUID flagId;
+    String flagName;
     DeployedLevel deployLevel;
 
-    static DeployableFeature createNew(FlagInfoValue flagValue, DeployedLevel deployLevel){
+    static DeployableFeature createNew(FlagInfoValue flagValue, DeployedLevelSnapshot deployLevel){
         DeployableFeature feature = new DeployableFeature();
         feature.id = UUID.randomUUID();
-        feature.deployLevel = deployLevel;
+        feature.deployLevel = DeployedLevel.restore(deployLevel);
         feature.flagId = UUID.fromString(flagValue.getId());
         feature.flagName = flagValue.getName();
+        return feature;
+    }
+
+    static DeployableFeature restore(DeployFeatureSnapshot snapshot){
+        DeployableFeature feature = new DeployableFeature();
+        feature.id = snapshot.getId();
+        feature.deployLevel = DeployedLevel.restore(snapshot.getDeployLevel());
+        feature.flagId = snapshot.getFlagId();
+        feature.flagName = snapshot.getFlagName();
         return feature;
     }
 
@@ -32,8 +35,7 @@ public class DeployableFeature {
                 id,
                 flagId,
                 flagName,
-                deployLevel.name,
-                deployLevel.description
+                deployLevel.toSnapshot()
         );
     }
 }

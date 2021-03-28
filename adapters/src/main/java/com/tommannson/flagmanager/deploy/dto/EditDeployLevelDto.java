@@ -1,10 +1,10 @@
 package com.tommannson.flagmanager.deploy.dto;
 
-import com.tommannson.flagmanager.deploy.DeployedLevel;
 import com.tommannson.flagmanager.deploy.DeployedLevelSnapshot;
-import com.tommannson.flagmanager.deploy.valueObject.LevelCreationInfo;
 
-public class CreateDeployLevelDto {
+import java.util.UUID;
+
+public class EditDeployLevelDto {
 
     String name;
     String description;
@@ -17,7 +17,7 @@ public class CreateDeployLevelDto {
         return description;
     }
 
-    public LevelCreationInfo to(){
-        return new LevelCreationInfo(name, description);
+    public DeployedLevelSnapshot to(String id){
+        return new DeployedLevelSnapshot(UUID.fromString(id), name, description);
     }
 }

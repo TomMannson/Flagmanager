@@ -1,6 +1,7 @@
 package com.tommannson.flagmanager.flags;
 
 import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
+import com.tommannson.flagmanager.flags.valueobject.CodeFlagChanges;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,17 +16,15 @@ public class FlagFacade {
         this.flagRepository = flagRepository;
     }
 
-    public CodeFlag createFlag(CodeFlag flag) {
-        return flagRepository.save(flag);
+    public UUID createFlag(CodeFlag flag) {
+        return flagRepository.addFlag(flag);
     }
 
     @Transactional
-    public void editFlag(UUID id, CodeFlag flag) {
-        flagRepository.findById(id)
-                .map(loadedValue -> {
-                    loadedValue.edit(flag);
-                    return loadedValue;
-                }).orElseThrow(ResourceNotExistsException::new);
+    public void editFlag(UUID id, CodeFlagChanges flagChanges) {
+        CodeFlag flag = flagRepository.findFlagById(id);
+        flag.edit(flagChanges);
+        flagRepository.editFlag(flag);
     }
 
 }

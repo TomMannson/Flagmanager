@@ -1,7 +1,10 @@
 package com.tommannson.flagmanager.flags.controller;
 
-import com.tommannson.flagmanager.flags.*;
+import com.tommannson.flagmanager.flags.CodeFlagSnapshot;
+import com.tommannson.flagmanager.flags.FlagFacade;
+import com.tommannson.flagmanager.flags.FlagRepository;
 import com.tommannson.flagmanager.flags.dto.CreateFlagDto;
+import com.tommannson.flagmanager.flags.dto.EditFlagDto;
 import com.tommannson.flagmanager.flags.dto.ResultFlagDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,24 +28,25 @@ public class CodeFlagController {
     }
 
     @GetMapping()
-    List<ResultFlagDto> findFlags(){
+    List<ResultFlagDto> findFlags() {
         return flagRepository.findAll()
                 .stream()
-                .map(CodeFlag::getSnapshot)
-                .map(value -> new ResultFlagDto(value.getId().toString(),
+                .map(value -> new ResultFlagDto(
+                        value.getId().toString(),
                         value.getName(),
-                        value.getDescription()))
+                        value.getDescription()
+                ))
                 .collect(Collectors.toList());
     }
 
     @PostMapping()
-    ResponseEntity<?> createFlag(@RequestBody CreateFlagDto dto){
-        CodeFlagSnapshot snapshot = flagFacade.createFlag(dto.to()).getSnapshot();
-        return ResponseEntity.created(URI.create("/" + snapshot.getId().toString())).build();
+    ResponseEntity<?> createFlag(@RequestBody CreateFlagDto dto) {
+        UUID id = flagFacade.createFlag(dto.to());
+        return ResponseEntity.created(URI.create("/" + id.toString())).build();
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> createFlag(@RequestBody CreateFlagDto dto, @PathVariable UUID id){
+    ResponseEntity<?> editFlag(@RequestBody EditFlagDto dto, @PathVariable UUID id) {
         flagFacade.editFlag(id, dto.to());
         return ResponseEntity.ok().build();
     }

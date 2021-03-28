@@ -1,9 +1,8 @@
 package com.tommannson.flagmanager.flags.dto;
 
-import com.tommannson.flagmanager.flags.CodeFlag;
-import com.tommannson.flagmanager.flags.CodeFlagSnapshot;
+import com.tommannson.flagmanager.flags.valueobject.CodeFlagChanges;
 
-public class CreateFlagDto {
+public class EditFlagDto {
 
     String name;
     String description;
@@ -16,7 +15,7 @@ public class CreateFlagDto {
         return description;
     }
 
-    public CodeFlag to(){
-        return CodeFlag.create(name, description);
+    public CodeFlagChanges to() {
+        return CodeFlagChanges.create(name, description);
     }
 }

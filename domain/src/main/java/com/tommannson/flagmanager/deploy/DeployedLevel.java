@@ -1,36 +1,34 @@
 package com.tommannson.flagmanager.deploy;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.UUID;
 
-@Entity
-@Table(name = "deployed_levels")
+
 public class DeployedLevel {
 
-    @Id
     UUID id;
-
     String name;
     String description;
 
-    public DeployedLevel(String name, String description) {
-        id = UUID.randomUUID();
+    public static DeployedLevel create(String name, String description){
+        return new DeployedLevel(UUID.randomUUID(), name, description);
+    }
+
+    private DeployedLevel(UUID id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    protected DeployedLevel() {
-        //persistence constructor
+    public void editWIth(DeployedLevelSnapshot flag) {
+        name = flag.name;
+        description = flag.description;
     }
 
     public DeployedLevelSnapshot toSnapshot(){
         return new DeployedLevelSnapshot(id, name, description);
     }
 
-    public void editWIth(DeployedLevel flag) {
-        name = flag.name;
-        description = flag.description;
+    public static DeployedLevel restore(DeployedLevelSnapshot deployedLevelSnapshot) {
+        return new DeployedLevel(deployedLevelSnapshot.getId(), deployedLevelSnapshot.getName(), deployedLevelSnapshot.getDescription());
     }
 }

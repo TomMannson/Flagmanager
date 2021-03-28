@@ -5,9 +5,12 @@ import java.util.UUID;
 public class DeployedLevelSnapshot {
 
     UUID id;
-
     String name;
     String description;
+
+    protected DeployedLevelSnapshot() {
+        //persistence constructor
+    }
 
     public DeployedLevelSnapshot(UUID id, String name, String description) {
         this.id = id;

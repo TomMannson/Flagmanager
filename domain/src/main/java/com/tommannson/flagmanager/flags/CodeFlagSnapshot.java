@@ -5,9 +5,13 @@ import java.util.UUID;
 
 public class CodeFlagSnapshot {
 
-    UUID id;
-    String name;
-    String description;
+    private UUID id;
+    private String name;
+    private String description;
+
+    protected CodeFlagSnapshot() {
+        //persistence
+    }
 
     public CodeFlagSnapshot(UUID id, String name, String description) {
         this.id = id;

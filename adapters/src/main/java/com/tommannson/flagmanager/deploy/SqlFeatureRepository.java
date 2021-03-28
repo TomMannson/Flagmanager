@@ -7,11 +7,22 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-interface SqlFeatureRepository extends JpaRepository<DeployableFeature, UUID>, FeatureRepository {
+interface SqlFeatureRepository extends JpaRepository<DeployFeatureSnapshot, UUID>, FeatureRepository {
 
-    @Query("from DeployableFeature feature join fetch feature.deployLevel where feature.deployLevel.id in :deployLevel")
-    Set<DeployableFeature> findAllWithLevels(Iterable<UUID> deployLevel);
+    @Query("from DeployFeatureSnapshot feature join fetch feature.deployLevel where feature.deployLevel.id in :deployLevel")
+    Set<DeployFeatureSnapshot> findAllWithLevels(Iterable<UUID> deployLevel);
 
-    Optional<DeployableFeature> findByFlagId(UUID flagId);
+    Optional<DeployFeatureSnapshot> findByFlagId(UUID flagId);
+
+    default Optional<DeployableFeature> findFeatureByFlagId(UUID flagId) {
+        return findByFlagId(flagId)
+                .map(DeployableFeature::restore);
+    }
+
+    default UUID saveFeature(DeployableFeature feature){
+        return save(feature.toSnapshot()).getId();
+    }
 
 }
+
+

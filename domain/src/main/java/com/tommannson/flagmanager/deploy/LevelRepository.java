@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public interface LevelRepository {
 
-    List<DeployedLevel> findAll();
+    List<DeployedLevelSnapshot> findAll();
 
-    DeployedLevel save(DeployedLevel feature);
+    UUID saveLevel(DeployedLevel feature);
 
-    Optional<DeployedLevel> findById(UUID id);
+    DeployedLevel findLevelById(UUID id);
 }

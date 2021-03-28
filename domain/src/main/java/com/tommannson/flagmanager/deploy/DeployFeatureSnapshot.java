@@ -7,15 +7,17 @@ public class DeployFeatureSnapshot {
     UUID id;
     UUID flagId;
     String flagName;
-    String deployLevel;
-    String deployName;
+    DeployedLevelSnapshot deployLevel;
 
-    public DeployFeatureSnapshot(UUID id, UUID flagId, String flagName, String deployLevel, String deployName) {
+    protected DeployFeatureSnapshot() {
+        //persistence constructor
+    }
+
+    public DeployFeatureSnapshot(UUID id, UUID flagId, String flagName, DeployedLevelSnapshot deployLevel) {
         this.id = id;
         this.flagId = flagId;
         this.flagName = flagName;
         this.deployLevel = deployLevel;
-        this.deployName = deployName;
     }
 
     public UUID getId() {
@@ -30,13 +32,7 @@ public class DeployFeatureSnapshot {
         return flagName;
     }
 
-
-    public String getDeployLevel() {
+    public DeployedLevelSnapshot getDeployLevel() {
         return deployLevel;
     }
-
-    public String getDeployName() {
-        return deployName;
-    }
-
 }

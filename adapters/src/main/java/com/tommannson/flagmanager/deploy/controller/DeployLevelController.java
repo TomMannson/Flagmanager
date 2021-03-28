@@ -2,6 +2,7 @@ package com.tommannson.flagmanager.deploy.controller;
 
 import com.tommannson.flagmanager.deploy.*;
 import com.tommannson.flagmanager.deploy.dto.CreateDeployLevelDto;
+import com.tommannson.flagmanager.deploy.dto.EditDeployLevelDto;
 import com.tommannson.flagmanager.deploy.dto.ResultDeployLevelDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,6 @@ public class DeployLevelController {
     List<ResultDeployLevelDto> findLevels(){
         return deployedLevelRepository.findAll()
                 .stream()
-                .map(DeployedLevel::toSnapshot)
                 .map(value -> new ResultDeployLevelDto(
                         value.getId().toString(),
                         value.getName(),
@@ -39,13 +39,13 @@ public class DeployLevelController {
 
     @PostMapping()
     ResponseEntity<?> createLevel(@RequestBody CreateDeployLevelDto dto){
-        DeployedLevelSnapshot snapshot = deployFacade.createLevel(dto.to()).toSnapshot();
-        return ResponseEntity.created(URI.create("/" + snapshot.getId().toString())).build();
+        UUID id = deployFacade.createLevel(dto.to());
+        return ResponseEntity.created(URI.create("/" + id.toString())).build();
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> createFlag(@RequestBody CreateDeployLevelDto dto, @PathVariable UUID id){
-        deployFacade.editLevel(id, dto.to());
+    ResponseEntity<?> editLevel(@RequestBody EditDeployLevelDto dto, @PathVariable UUID id){
+        deployFacade.editLevel(id, dto.to(id.toString()));
         return ResponseEntity.ok().build();
     }
 

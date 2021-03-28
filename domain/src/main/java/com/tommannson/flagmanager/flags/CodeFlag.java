@@ -1,16 +1,28 @@
 package com.tommannson.flagmanager.flags;
 
-import javax.persistence.*;
+import com.tommannson.flagmanager.flags.valueobject.CodeFlagChanges;
+
 import java.util.UUID;
 
-@Entity
-@Table(name = "code_flags")
 public class CodeFlag {
 
-    @Id
     UUID id;
     String name;
     String description;
+
+    public static CodeFlag create(String name, String description){
+        return new CodeFlag(name, description);
+    }
+
+    public static CodeFlag restore(CodeFlagSnapshot snapshot) {
+        CodeFlag flag = new CodeFlag();
+
+        flag.id = snapshot.getId();
+        flag.name = snapshot.getName();
+        flag.description = snapshot.getDescription();
+
+        return flag;
+    }
 
     public CodeFlag(String name, String description) {
         this.id = UUID.randomUUID();
@@ -22,12 +34,12 @@ public class CodeFlag {
         //persistence constructor
     }
 
-    public CodeFlagSnapshot getSnapshot(){
+    public CodeFlagSnapshot getSnapshot() {
         return new CodeFlagSnapshot(this.id, this.name, this.description);
     }
 
-    public void edit(CodeFlag flag) {
-        this.name = flag.name;
-        this.description = flag.description;
+    public void edit(CodeFlagChanges flag) {
+        this.name = flag.getName();
+        this.description = flag.getDescription();
     }
 }

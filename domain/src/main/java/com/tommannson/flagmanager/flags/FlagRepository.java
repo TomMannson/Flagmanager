@@ -1,14 +1,15 @@
 package com.tommannson.flagmanager.flags;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface FlagRepository {
 
-    CodeFlag save(CodeFlag feature);
+    UUID addFlag(CodeFlag flag);
 
-    Optional<CodeFlag> findById(UUID id);
+    void editFlag(CodeFlag flag);
 
-    List<CodeFlag> findAll();
+    CodeFlag findFlagById(UUID id);
+
+    List<CodeFlagSnapshot> findAll();
 }
