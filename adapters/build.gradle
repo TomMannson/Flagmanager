@@ -8,6 +8,11 @@ group = 'com.tommannson'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+bootJar {
+    enabled false
+}
+
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
