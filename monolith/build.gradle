@@ -14,13 +14,9 @@ configurations {
     }
 }
 
-
-
 repositories {
     mavenCentral()
 }
-
-
 
 dependencyManagement {
     imports {

@@ -4,6 +4,7 @@ import com.tommannson.flagmanager.flags.valueobject.CodeFlagChanges;
 
 import java.util.UUID;
 
+@Deprecated
 public class CodeFlag {
 
     UUID id;

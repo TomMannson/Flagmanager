@@ -1,4 +1,4 @@
-package com.tommannson.flagmanager.flags.error;
+package com.tommannson.flagmanager.error;
 
 public class ResourceNotExistsException extends RuntimeException{
 }

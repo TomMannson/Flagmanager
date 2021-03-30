@@ -2,7 +2,6 @@ package com.tommannson.flagmanager.deploy;
 
 import com.tommannson.flagmanager.deploy.valueObject.FlagInfoValue;
 import com.tommannson.flagmanager.deploy.valueObject.LevelCreationInfo;
-import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

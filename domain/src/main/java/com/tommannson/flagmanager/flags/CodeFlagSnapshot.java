@@ -3,6 +3,7 @@ package com.tommannson.flagmanager.flags;
 
 import java.util.UUID;
 
+@Deprecated
 public class CodeFlagSnapshot {
 
     private UUID id;

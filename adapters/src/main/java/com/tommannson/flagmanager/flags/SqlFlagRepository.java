@@ -1,7 +1,7 @@
 package com.tommannson.flagmanager.flags;
 
 import com.tommannson.flagmanager.error.ResourceAlreadyExistsException;
-import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
+import com.tommannson.flagmanager.error.ResourceNotExistsException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

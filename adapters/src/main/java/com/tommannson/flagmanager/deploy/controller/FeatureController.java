@@ -1,6 +1,5 @@
 package com.tommannson.flagmanager.deploy.controller;
 
-import com.tommannson.flagmanager.deploy.DeployableFeature;
 import com.tommannson.flagmanager.deploy.DeployableFeatureFacade;
 import com.tommannson.flagmanager.deploy.FeatureRepository;
 import com.tommannson.flagmanager.deploy.dto.CreateFeatureDto;
@@ -8,7 +7,6 @@ import com.tommannson.flagmanager.deploy.dto.ResultFeatureDto;
 import com.tommannson.flagmanager.deploy.valueObject.FlagInfoValue;
 import com.tommannson.flagmanager.flags.CodeFlag;
 import com.tommannson.flagmanager.flags.FlagRepository;
-import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

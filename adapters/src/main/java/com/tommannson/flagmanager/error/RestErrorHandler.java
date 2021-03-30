@@ -1,6 +1,5 @@
 package com.tommannson.flagmanager.error;
 
-import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

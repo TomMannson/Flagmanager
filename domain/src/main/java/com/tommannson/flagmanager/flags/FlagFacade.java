@@ -1,6 +1,5 @@
 package com.tommannson.flagmanager.flags;
 
-import com.tommannson.flagmanager.flags.error.ResourceNotExistsException;
 import com.tommannson.flagmanager.flags.valueobject.CodeFlagChanges;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Service
+@Deprecated
 public class FlagFacade {
 
     private final FlagRepository flagRepository;
