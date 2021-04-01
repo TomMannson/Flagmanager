@@ -7,6 +7,8 @@ import com.tommannson.flagmanager.deploy.dto.ResultDeployLevelDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;

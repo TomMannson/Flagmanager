@@ -1,3 +1,0 @@
-rootProject.name = 'flagmanager'
-include 'domain', 'adapters', 'monolith'
-

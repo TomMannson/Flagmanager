@@ -7,6 +7,7 @@ import com.tommannson.flagmanager.flags.dto.CreateFlagDto;
 import com.tommannson.flagmanager.flags.dto.EditFlagDto;
 import com.tommannson.flagmanager.flags.dto.ResultFlagDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -29,6 +30,13 @@ public class CodeFlagController {
 
     @GetMapping()
     List<ResultFlagDto> findFlags() {
+        String hash = "$2a$10$wGKaRhuHUIa.JHBX9YDldOeuNw4C1R/wmRmv6HlILVOprOjjmNvmi";
+        String data = new BCryptPasswordEncoder().encode("test");
+
+        if(new BCryptPasswordEncoder().matches("test", hash)){
+            "SUCCES".toString();
+        }
+
         return flagRepository.findAll()
                 .stream()
                 .map(value -> new ResultFlagDto(

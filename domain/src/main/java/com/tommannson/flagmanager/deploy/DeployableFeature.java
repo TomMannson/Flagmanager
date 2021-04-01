@@ -18,6 +18,7 @@ public class DeployableFeature {
         feature.deployLevel = DeployedLevel.restore(deployLevel);
         feature.flagId = UUID.fromString(flagValue.getId());
         feature.flagName = flagValue.getName();
+
         return feature;
     }
 
