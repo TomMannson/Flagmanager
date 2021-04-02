@@ -4,8 +4,8 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table(name = "feature_flag")
-class FeatureFlag(
+@Table(name = "deloyment_level")
+class Level(
 
         @Id val id: UUID,
         val key: String,
@@ -13,7 +13,7 @@ class FeatureFlag(
         val description: String,
 
         @ManyToOne
-        @JoinColumn(name = "levelId")
-        val assignedLevel: Level?,
+        @JoinColumn(name="processId", nullable=false)
+        val process: DeploymentProcess,
         val ownerId: UUID, //id in remote domain
 )
