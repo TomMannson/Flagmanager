@@ -4,16 +4,19 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table(name = "deloyment_level")
+@Table(
+        name = "deloyment_level",
+        uniqueConstraints = arrayOf(
+                UniqueConstraint(columnNames = arrayOf("owner", "name"))
+        ),
+)
 class Level(
 
         @Id val id: UUID,
-        val key: String,
         val name: String,
         val description: String,
+        @Column(nullable = false)
+        val orderInProcess: Int,
 
-        @ManyToOne
-        @JoinColumn(name="processId", nullable=false)
-        val process: DeploymentProcess,
-        val ownerId: UUID, //id in remote domain
+        val owner: String, //id in remote domain
 )
