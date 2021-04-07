@@ -11,12 +11,11 @@ import javax.persistence.*
         ),
 )
 class Level(
-
         @Id val id: UUID,
         val name: String,
-        val description: String,
+        var description: String,
         @Column(nullable = false)
-        val orderInProcess: Int,
+        var orderInProcess: Int,
 
         val owner: String, //id in remote domain
 )

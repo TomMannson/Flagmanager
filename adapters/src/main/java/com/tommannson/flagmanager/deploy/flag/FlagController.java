@@ -29,9 +29,15 @@ public class FlagController {
         this.levelRepository = levelRepository;
     }
 
-    @GetMapping
+    @GetMapping(params = "!levelId")
     public ResponseEntity<Page<?>> getListOfFlags(@RequestParam String ownerId) {
         return ResponseEntity.ok(queryRepository.findAllByOwner(ownerId, Pageable.unpaged()));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<?>> getListOfFlagsByLevel(@RequestParam String ownerId, @RequestParam UUID levelId) {
+        Level level = levelRepository.findByIdRequired(levelId);
+        return ResponseEntity.ok(queryRepository.findByOwnerAndOrder(ownerId, level.getOrderInProcess(), Pageable.unpaged()));
     }
 
     @PostMapping(params = {"create", "!assignLevel"})
